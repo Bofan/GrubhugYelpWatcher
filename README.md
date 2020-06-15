@@ -1,2 +1,2 @@
 # GrubhubYelpWatcher
-A simple Python script that detect changes in a listed Yelp phone number.
+A simple Python script that can detect changes in a listed Yelp phone number.
