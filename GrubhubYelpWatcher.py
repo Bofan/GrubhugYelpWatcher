@@ -73,12 +73,10 @@ else:
 		# Encrypt the TLS protocol connection.
 		connection.starttls()
 		# Login and send the email. Note that the password is an app-specific key.
-		conn.login("xxxxxxxxxx@gmail.com", "xxxxxxxxxx")
-		for email in email_list:
-			print("forloop")
-	    	conn.sendmail("xxxxxxxxxx@gmail.com", email, \
+		connection.login("xxxxxxxxxx@gmail.com", "xxxxxxxxxx")
+	    	connection.sendmail("xxxxxxxxxx@gmail.com", email, \
 	    		"Subject: Your Yelp Phone Number Has Been Changed.\n" + \
-	    		"Contact Yelp at (877) 767-9357.")
-	    conn.quit()
+	    		"You can contact Yelp at (877) 767-9357.")
+	    	connection.quit()
 	except SMTPException:
 		print("Error encountered.")
