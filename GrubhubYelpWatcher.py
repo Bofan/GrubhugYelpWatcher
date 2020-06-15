@@ -59,7 +59,7 @@ phone_number = phone_number.string
 for char in ["\n", " ", "(", ")", "-"]:
 	phone_number = phone_number.replace(char, "")
 print(phone_number)
-# Console test output - inspection messages.
+# Check to see if the listed phone number is correct.
 if phone_number == correct_phone:
 	# The listed phone number is correct. Do literally nothing else.
 	pass
