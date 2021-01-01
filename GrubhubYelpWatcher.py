@@ -2,43 +2,41 @@
 # The above line allows tells the computer which interpreter/language is being 
 #   used in this script.
 
-# ----------------------------------------------------------------------------
-# AUTHOR
-# 
-#     Bofan Chen :)
-# ----------------------------------------------------------------------------
-# DESCRIPTION
-# 
-#     This program will check a Yelp webpage and notify you via email if 
-#     the listed phone number changes to one provided by a third party - 
-#     likely Github.
-#         Along with a .bat file in the folder, a Windows program can be 
-#     scheduled to run at set times.
-# ----------------------------------------------------------------------------
+"""
+AUTHOR
+
+    Bofan Chen :)
+--------------------------------------------------------------------------------
+DESCRIPTION
+
+    This program will check a Yelp webpage and notify you via email if 
+    the listed phone number changes to one provided by a third party - 
+    likely Github.
+        Along with a .bat file in the folder, a Windows program can be 
+    scheduled to run at set times.
+"""
 
 # Imports.
-#   "requests" downloads a webpage's HTML code.
-#   "bs4" (Beautiful Soup 4) parses HTML (and XML) documents.
-#   "smtplib" defines an email client session.
-#   "sys" will be used to terminate the script should an error be found.
+#   - "requests" downloads a webpage's HTML code.
+#   - "bs4" (Beautiful Soup 4) parses HTML (and XML) documents.
+#   - "smtplib" defines an email client session.
+#   - "sys" will be used to terminate the script should an error be found.
 import requests, bs4, smtplib, sys
 
-# The URL of the Yelp page you want to monitor.
-yelp_page = "https://www.yelp.com/biz/xxxxxxxxxx"
-# Format the phone number as 10 digits with no dashes, parentheses, or spaces.
-# If you wish to use another format, you can make changes to line 43.
+# TODO - The URL of the Yelp page you want to monitor.
+yelp_page = "https://www.yelp.com/biz/XXXXXXXXXX"
+# TODO - Format the phone number as 10 digits with no dashes, parentheses, or spaces.
 correct_phone = "XXXXXXXXXX"
-email_list = ["xxxxxxxxxx@gmail.com"]
 # If reading lines from a info_list.txt file....
 #   phonenumber
 #   email1
 #   email2
 #   email3
-# with open("info.txt") as file:
-#     info_list = file.readlines()
-# info_list = [info.strip() for info in info_list]
-# correct_phone = info_list[0]
-# email_list = info_list[1:]
+with open("contact-info.txt") as file:
+    info_list = file.readlines()
+info_list = [info.strip() for info in info_list]
+correct_phone = info_list[0]
+email_list = info_list[1:]
 
 # Download the page's HTML code.
 webpage_html = requests.get(yelp_page)
@@ -57,26 +55,24 @@ phone_number = info.find("span", itemprop = "telephone")
 phone_number = phone_number.string
 # Remove all whitespace, parentheses, and dashes from the formatted phone number.
 for char in ["\n", " ", "(", ")", "-"]:
-	phone_number = phone_number.replace(char, "")
-print(phone_number)
+    phone_number = phone_number.replace(char, "")
 # Check to see if the listed phone number is correct.
-if phone_number == correct_phone:
-	# The listed phone number is correct. Do literally nothing else.
-	pass
-else:
-	# Send a warning email.
-	try:
-		# Set up a connection to email by using the correct address and port.
-		connection = smtplib.SMTP("smtp.gmail.com", 587)
-		# Start the connection.
-		connection.ehlo()
-		# Encrypt the TLS protocol connection.
-		connection.starttls()
-		# Login and send the email. Note that the password is an app-specific key.
-		connection.login("xxxxxxxxxx@gmail.com", "xxxxxxxxxx")
-	    	connection.sendmail("xxxxxxxxxx@gmail.com", email, \
-	    		"Subject: Your Yelp Phone Number Has Been Changed.\n" + \
-	    		"You can contact Yelp at (877) 767-9357.")
-	    	connection.quit()
-	except SMTPException:
-		print("Error encountered.")
+if phone_number != correct_phone:
+    # If not, send a warning email.
+    try:
+        # Set up a connection to email by using the correct address and port.
+        connection = smtplib.SMTP("smtp.gmail.com", 587)
+        # Start the connection.
+        connection.ehlo()
+        # Encrypt the TLS protocol connection.
+        connection.starttls()
+        # TODO - Login and send the email.
+	# Note that the password is an app-specific key.
+        connection.login("XXXXXXXXXX@gmail.com", "XXXXXXXXXX")
+	for email in email_list:
+            connection.sendmail("XXXXXXXXXX@gmail.com", email, \
+              "Subject: Your Yelp Phone Number Has Been Changed.\n" + \
+              "You can contact Yelp customer service at (877) 767-9357.")
+        connection.quit()
+    except SMTPException:
+        print("Error encountered.")
