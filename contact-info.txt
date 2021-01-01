@@ -1,4 +1,4 @@
-[correct phone number]
+[correct phone number (XXXXXXXXXX)]
 [email to be notified #1]
 [email #2]
 [email #3...]
