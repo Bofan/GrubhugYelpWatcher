@@ -9,14 +9,12 @@ AUTHOR
 --------------------------------------------------------------------------------
 DESCRIPTION
 
-    This program will check a Yelp webpage and notify you via email if 
-    the listed phone number changes to one provided by a third party - 
-    likely Github.
-        Along with a .bat file in the folder, a Windows program can be 
-    scheduled to run at set times.
+    This script will check a Yelp webpage and notify via email if the listed 
+    phone number changes to one provided by a third party, like Grubhub.
+        When paired with a <.bat> file in the same directory, a Windows program 
+    can be scheduled to run at set times.
 """
 
-# Imports.
 #   - "requests" downloads a webpage's HTML code.
 #   - "bs4" (Beautiful Soup 4) parses HTML (and XML) documents.
 #   - "smtplib" defines an email client session.
